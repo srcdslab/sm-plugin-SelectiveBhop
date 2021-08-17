@@ -1,0 +1,118 @@
+"Games"
+{
+    "#default"
+    {
+        "#supported"
+        {
+            "engine"    "csgo"
+        }
+
+        "Offsets"
+        {
+            "m_pCSPlayer"
+            {
+                "linux"        "3668"
+            }
+
+            "CappingOffset"
+            {
+                "linux"        "881"
+            }
+
+            "PatchBytes"
+            {
+                "linux"        "96"
+            }
+        }
+
+        "Addresses"
+        {
+            "CCSGameMovement::CheckJumpButton"
+            {
+                "linux"
+                {
+                    "signature" "CCSGameMovement::CheckJumpButton"
+                }
+            }
+        }
+
+        "Signatures"
+        {
+            // Str: "player_jump"  ^  CCSGameMovement::CheckJumpButton  ^  CCSGameMovement::  v  CCSGameMovement::OnLand
+            "CCSGameMovement::OnLand"
+            {
+                "library"    "server"
+                "linux"        "\x55\x89\xE5\x57\x56\x53\x83\xEC\x4C\x8B\x75\x08\xF3\x0F\x10\x45\x0C\xF3\x0F\x11\x45\xE4\x8B\x9E\x54\x0E\x00\x00"
+            }
+
+            // CCSGameMovement::OnLand  v  CCSPlayer::OnLand
+            "CCSPlayer::OnLand"
+            {
+                "library"    "server"
+                "linux"        "\x55\x89\xE5\x81\xEC\x68\x02\x00\x00\x89\x5D\xF4\x8B\x5D\x08\x89\x75\xF8\x89\x7D\xFC\x89\x1C\x24\xE8\x2A\x2A\x2A\x2A\x85\xC0"
+            }
+
+            // Str: "player_jump"  ^  CCSGameMovement::CheckJumpButton  ^  CCSGameMovement::  v  CCSGameMovement::OnJump
+            "CCSGameMovement::OnJump"
+            {
+                "library"    "server"
+                "linux"        "\x55\x89\xE5\x57\x56\x53\x83\xEC\x4C\x8B\x75\x08\xF3\x0F\x10\x45\x0C\xF3\x0F\x11\x45\xE4\x8B\x86\x54\x0E\x00\x00"
+            }
+
+            // CCSGameMovement::  v  CCSGameMovement::PreventBunnyJumping
+            "CCSGameMovement::PreventBunnyJumping"
+            {
+                "library"    "server"
+                "linux"        "\x55\xF3\x0F\x10\x0D\x2A\x2A\x2A\x2A\x89\xE5\x8B\x45\x08\x8B\x90\x54\x0E\x00\x00"
+            }
+
+            // CCSGameMovement::  v  CCSGameMovement::CheckJumpButton
+            "CCSGameMovement::CheckJumpButton"
+            {
+                "library"    "server"
+                "linux"        "\x55\x89\xE5\x81\xEC\xC8\x00\x00\x00\x89\x5D\xF4\x8B\x5D\x08\x89\x75\xF8\x89\x7D\xFC\x8B\x83\x54\x0E\x00\x00"
+            }
+        }
+
+        "Functions"
+        {
+            "CCSGameMovement::OnLand"
+            {
+                "signature"    "CCSGameMovement::OnLand"
+                "callconv"    "thiscall"
+                "this"        "address"
+                "return"    "void"
+                "arguments"
+                {
+                    "fVelocity"
+                    {
+                        "type"    "float"
+                    }
+                }
+            }
+
+            "CCSGameMovement::OnJump"
+            {
+                "signature"    "CCSGameMovement::OnJump"
+                "callconv"    "thiscall"
+                "this"        "address"
+                "return"    "void"
+                "arguments"
+                {
+                    "fImpulse"
+                    {
+                        "type"    "float"
+                    }
+                }
+            }
+
+            "CCSGameMovement::PreventBunnyJumping"
+            {
+                "signature"    "CCSGameMovement::PreventBunnyJumping"
+                "callconv"    "thiscall"
+                "this"        "address"
+                "return"    "void"
+            }
+        }
+    }
+}
