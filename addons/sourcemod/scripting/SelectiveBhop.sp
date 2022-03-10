@@ -6,6 +6,7 @@
 #include <PhysHooks>
 #include <zombiereloaded>
 #include <SelectiveBhop>
+#include <multicolors>
 
 ConVar g_CVar_sv_enablebunnyhopping;
 ConVar g_CVar_zr_disablebunnyhopping;
@@ -31,9 +32,9 @@ StringMap g_ClientLimitedCache;
 public Plugin myinfo =
 {
 	name = "Selective Bunnyhop",
-	author = "BotoX",
+	author = "BotoX + .Rushaway",
 	description = "Disables bunnyhop on certain players/groups",
-	version = "0.1"
+	version = "0.3"
 }
 
 public void OnPluginStart()
@@ -287,9 +288,15 @@ stock void TransmitConVar(int client)
 
 public Action Command_Bhop(int client, int argc)
 {
+	if (!client)
+	{
+		CPrintToServer("{green}[SM] {default}Cannot use command from server console.");
+		return Plugin_Handled;
+	}
+
 	if(argc < 2)
 	{
-		ReplyToCommand(client, "[SM] Usage: sm_bhop <#userid|name> <0|1>");
+		CReplyToCommand(client, "{green}[SM] {default}Usage: sm_bhop <#userid|name> <0|1>");
 		return Plugin_Handled;
 	}
 
@@ -320,18 +327,24 @@ public Action Command_Bhop(int client, int argc)
 			AddLimitedFlag(iTargets[i], LIMITED_GENERAL);
 	}
 
-	ShowActivity2(client, "\x01[SM] \x04", "\x01\x04%s\x01 bunnyhop on target \x04%s", bValue ? "Un-limited" : "Limited", sTargetName);
+	CShowActivity2(client, "{green}[SM]{olive} ", "{default}Bunnyhop on target {olive}%s {default}has been {green}%s", sTargetName, bValue ? "Un-Restricted" : "Limited");
 
 	if(iTargetCount > 1)
-		LogAction(client, -1, "\"%L\" %s bunnyhop on target \"%s\"", client, bValue ? "Un-limited" : "Limited", sTargetName);
+		LogAction(client, -1, "\"%L\" %s bunnyhop on target \"%s\"", client, bValue ? "Un-Restricted" : "Limited", sTargetName);
 	else
-		LogAction(client, iTargets[0], "\"%L\" %s bunnyhop on target \"%L\"", client, bValue ? "Un-limited" : "Limited", iTargets[0]);
+		LogAction(client, iTargets[0], "\"%L\" %s bunnyhop on target \"%L\"", client, bValue ? "Un-Restricted" : "Limited", iTargets[0]);
 
 	return Plugin_Handled;
 }
 
 public Action Command_Status(int client, int argc)
 {
+	if (!client)
+	{
+		CPrintToServer("{green}[SM] {default}Cannot use command from server console.");
+		return Plugin_Handled;
+	}
+
 	if (argc && CheckCommandAccess(client, "", ADMFLAG_BAN, true))
 	{
 		char sArgument[64];
@@ -343,12 +356,12 @@ public Action Command_Status(int client, int argc)
 
 		if(IsBhopLimited(target))
 		{
-			ReplyToCommand(client, "[SM] %N their bhop is currently: limited", target);
+			CReplyToCommand(client, "{green}[SM] {olive}%N {default}bhop is currently : {red}Limited", target);
 			return Plugin_Handled;
 		}
 		else
 		{
-			ReplyToCommand(client, "[SM] %N their bhop is currently: unlimited", target);
+			CReplyToCommand(client, "{green}[SM] {olive}%N {default}bhop is currently : {green}Not Restricted", target);
 			return Plugin_Handled;
 		}
 	}
@@ -356,12 +369,12 @@ public Action Command_Status(int client, int argc)
 	{
 		if(IsBhopLimited(client))
 		{
-			ReplyToCommand(client, "[SM] your bhop is currently: limited");
+			CReplyToCommand(client, "{green}[SM] {default}Your bhop is currently : {red}Limited");
 			return Plugin_Handled;
 		}
 		else
 		{
-			ReplyToCommand(client, "[SM] your bhop is currently: unlimited");
+			CReplyToCommand(client, "{green}[SM] {default}Your bhop is currently : {green}Not restricted");
 			return Plugin_Handled;
 		}
 	}
