@@ -4,12 +4,14 @@
 #include <sourcemod>
 #include <sdkhooks>
 #include <PhysHooks>
-#include <zombiereloaded>
 #include <SelectiveBhop>
 #include <multicolors>
+#tryinclude <zombiereloaded>
 
 ConVar g_CVar_sv_enablebunnyhopping;
+#if defined _zr_included
 ConVar g_CVar_zr_disablebunnyhopping;
+#endif
 
 enum
 {
@@ -21,7 +23,9 @@ enum
 }
 
 bool g_bEnabled = false;
+#if defined _zr_included
 bool g_bZombieEnabled = false;
+#endif
 bool g_bInOnPlayerRunCmd = false;
 
 int g_ClientLimited[MAXPLAYERS + 1] = {LIMITED_NONE, ...};
@@ -47,9 +51,11 @@ public void OnPluginStart()
 	g_CVar_sv_enablebunnyhopping.AddChangeHook(OnConVarChanged);
 	g_bEnabled = g_CVar_sv_enablebunnyhopping.BoolValue;
 
+#if defined _zr_included
 	g_CVar_zr_disablebunnyhopping = CreateConVar("zr_disablebunnyhopping", "0", "Disable bhop for zombies.", FCVAR_NOTIFY);
 	g_CVar_zr_disablebunnyhopping.AddChangeHook(OnConVarChanged);
 	g_bZombieEnabled = g_CVar_zr_disablebunnyhopping.BoolValue;
+#endif
 
 	g_ClientLimitedCache = new StringMap();
 
@@ -64,8 +70,10 @@ public void OnPluginStart()
 		if(!IsClientInGame(i) || IsFakeClient(i))
 			continue;
 
+#if defined _zr_included
 		if(ZR_IsClientZombie(i))
 			AddLimitedFlag(i, LIMITED_ZOMBIE);
+#endif
 	}
 
 	UpdateLimitedFlags();
@@ -147,11 +155,13 @@ public void OnConVarChanged(ConVar convar, const char[] oldValue, const char[] n
 		g_bEnabled = convar.BoolValue;
 		UpdateClients();
 	}
+#if defined _zr_included
 	else if(convar == g_CVar_zr_disablebunnyhopping)
 	{
 		g_bZombieEnabled = convar.BoolValue;
 		UpdateLimitedFlags();
 	}
+#endif
 }
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon, int &subtype, int &cmdnum, int &tickcount, int &seed, int mouse[2])
@@ -194,6 +204,7 @@ public void ZR_OnClientHumanPost(int client, bool respawn, bool protect)
 	RemoveLimitedFlag(client, LIMITED_ZOMBIE);
 }
 
+#if defined _zr_included
 public void ZR_OnClientRespawned(int client, ZR_RespawnCondition condition)
 {
 	if(condition == ZR_Respawn_Human)
@@ -201,6 +212,7 @@ public void ZR_OnClientRespawned(int client, ZR_RespawnCondition condition)
 	else
 		AddLimitedFlag(client, LIMITED_ZOMBIE);
 }
+#endif
 
 public void Event_RoundStart(Event event, const char[] name, bool dontBroadcast)
 {
@@ -211,8 +223,10 @@ void UpdateLimitedFlags()
 {
 	int Flags = LIMITED_GENERAL;
 
+#if defined _zr_included
 	if(g_bZombieEnabled)
 		Flags |= LIMITED_ZOMBIE;
+#endif
 
 	if(g_ActiveLimitedFlags != Flags)
 	{
