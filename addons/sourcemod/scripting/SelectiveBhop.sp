@@ -38,7 +38,7 @@ public Plugin myinfo =
 	name = "Selective Bunnyhop",
 	author = "BotoX + .Rushaway",
 	description = "Disables bunnyhop on certain players/groups",
-	version = "0.3"
+	version = "1.0.0"
 }
 
 public void OnPluginStart()
