@@ -326,53 +326,41 @@ public Action Command_Bhop(int client, int argc)
 
 	bValue = sArg2[0] == '1' ? true : false;
 
-	if((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_NO_MULTI | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
 	}
 
-	if(iTargetCount == 1)
+	for(int i = 0; i < iTargetCount; i++)
 	{
 		if(bValue)
-		{	
-			if(!IsBhopLimited(iTargets[0]))
+		{
+			if(!IsBhopLimited(iTargets[i]))
 			{
-				CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Un-Restricted.", iTargets[0]);
-				return Plugin_Handled;
+				if(iTargetCount == 1)
+				{
+					CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Un-Restricted.", iTargets[i]);
+					return Plugin_Handled;
+				}
+				continue;
 			}
-			else
-				RemoveLimitedFlag(iTargets[0], LIMITED_GENERAL);
+
+			RemoveLimitedFlag(iTargets[i], LIMITED_GENERAL);
 		}
 		else
 		{
-			if(IsBhopLimited(iTargets[0]))
+			if(IsBhopLimited(iTargets[i]))
 			{
-				CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Restricted.", iTargets[0]);
-				return Plugin_Handled;
+				if(iTargetCount == 1)
+				{
+					CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Restricted.", iTargets[i]);
+					return Plugin_Handled;
+				}
+				continue;
 			}
-			else
-				AddLimitedFlag(iTargets[0], LIMITED_GENERAL);
-		}
-	}
-	else if(iTargetCount > 1)
-	{
-		for(int i = 0; i < iTargetCount; i++)
-		{
-			if(bValue)
-			{
-				if(!IsBhopLimited(iTargets[i]))
-					continue;
 
-				RemoveLimitedFlag(iTargets[i], LIMITED_GENERAL);
-			}
-			else
-			{
-				if(IsBhopLimited(iTargets[i]))
-					continue;
-
-				AddLimitedFlag(iTargets[i], LIMITED_GENERAL);
-			}
+			AddLimitedFlag(iTargets[i], LIMITED_GENERAL);
 		}
 	}
 
