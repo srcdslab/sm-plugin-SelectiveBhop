@@ -360,9 +360,19 @@ public Action Command_Bhop(int client, int argc)
 		for(int i = 0; i < iTargetCount; i++)
 		{
 			if(bValue)
+			{
+				if(!IsBhopLimited(iTargets[i]))
+					continue;
+
 				RemoveLimitedFlag(iTargets[i], LIMITED_GENERAL);
+			}
 			else
+			{
+				if(IsBhopLimited(iTargets[i]))
+					continue;
+
 				AddLimitedFlag(iTargets[i], LIMITED_GENERAL);
+			}
 		}
 	}
 
