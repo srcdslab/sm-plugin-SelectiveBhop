@@ -6,7 +6,10 @@
 #include <PhysHooks>
 #include <SelectiveBhop>
 #include <multicolors>
+
+#undef REQUIRE_PLUGIN
 #tryinclude <zombiereloaded>
+#define REQUIRE_PLUGIN
 
 ConVar g_CVar_sv_enablebunnyhopping;
 #if defined _zr_included
@@ -17,8 +20,6 @@ enum
 {
 	LIMITED_NONE = 0,
 	LIMITED_GENERAL = 1,
-
-	// Temp
 	LIMITED_ZOMBIE = 2
 }
 
@@ -38,12 +39,11 @@ public Plugin myinfo =
 	name = "Selective Bunnyhop",
 	author = "BotoX + .Rushaway",
 	description = "Disables bunnyhop on certain players/groups",
-	version = "1.0.0"
+	version = "1.1.1"
 }
 
 public void OnPluginStart()
 {
-
 	LoadTranslations("common.phrases");
 
 	g_CVar_sv_enablebunnyhopping = FindConVar("sv_enablebunnyhopping");
@@ -62,7 +62,6 @@ public void OnPluginStart()
 	HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
 
 	RegAdminCmd("sm_bhop", Command_Bhop, ADMFLAG_GENERIC, "sm_bhop <#userid|name> <0|1>");
-
 	RegConsoleCmd("sm_bhopstatus", Command_Status, "sm_bhopstatus [#userid|name]");
 
 	for(int i = 1; i <= MaxClients; i++)
@@ -82,7 +81,6 @@ public void OnPluginStart()
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-
 	CreateNative("LimitBhop", Native_LimitBhop);
 	CreateNative("IsBhopLimited", Native_IsBhopLimited);
 	RegPluginLibrary("SelectiveBhop");
@@ -109,7 +107,10 @@ public void OnPluginEnd()
 
 public void OnMapEnd()
 {
-	g_ClientLimitedCache.Clear();
+	// .Clear() is creating a memory leak
+	// g_ClientLimitedCache.Clear();
+	delete g_ClientLimitedCache;
+	g_ClientLimitedCache = new StringMap();
 }
 
 public void OnClientPutInServer(int client)
@@ -124,7 +125,7 @@ public void OnClientDisconnect(int client)
 	if(LimitedFlag != LIMITED_NONE)
 	{
 		char sSteamID[64];
-		if(GetClientAuthId(client, AuthId_Engine, sSteamID, sizeof(sSteamID)))
+		if(GetClientAuthId(client, AuthId_Steam3, sSteamID, sizeof(sSteamID), false))
 			g_ClientLimitedCache.SetValue(sSteamID, LimitedFlag, true);
 	}
 
@@ -134,7 +135,7 @@ public void OnClientDisconnect(int client)
 public void OnClientPostAdminCheck(int client)
 {
 	char sSteamID[64];
-	if(GetClientAuthId(client, AuthId_Engine, sSteamID, sizeof(sSteamID)))
+	if(GetClientAuthId(client, AuthId_Steam3, sSteamID, sizeof(sSteamID), false))
 	{
 		int LimitedFlag;
 		if(g_ClientLimitedCache.GetValue(sSteamID, LimitedFlag))
@@ -194,6 +195,7 @@ public void OnRunThinkFunctionsPost(bool simulating)
 	}
 }
 
+#if defined _zr_included
 public void ZR_OnClientInfected(int client, int attacker, bool motherInfect, bool respawnOverride, bool respawn)
 {
 	AddLimitedFlag(client, LIMITED_ZOMBIE);
@@ -204,7 +206,6 @@ public void ZR_OnClientHumanPost(int client, bool respawn, bool protect)
 	RemoveLimitedFlag(client, LIMITED_ZOMBIE);
 }
 
-#if defined _zr_included
 public void ZR_OnClientRespawned(int client, ZR_RespawnCondition condition)
 {
 	if(condition == ZR_Respawn_Human)
@@ -223,10 +224,8 @@ void UpdateLimitedFlags()
 {
 	int Flags = LIMITED_GENERAL;
 
-#if defined _zr_included
 	if(g_bZombieEnabled)
 		Flags |= LIMITED_ZOMBIE;
-#endif
 
 	if(g_ActiveLimitedFlags != Flags)
 	{
@@ -327,7 +326,7 @@ public Action Command_Bhop(int client, int argc)
 
 	bValue = sArg2[0] == '1' ? true : false;
 
-	if((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_NO_MULTI, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -336,9 +335,33 @@ public Action Command_Bhop(int client, int argc)
 	for(int i = 0; i < iTargetCount; i++)
 	{
 		if(bValue)
+		{
+			if(!IsBhopLimited(iTargets[i]))
+			{
+				if(iTargetCount == 1)
+				{
+					CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Un-Restricted.", iTargets[i]);
+					return Plugin_Handled;
+				}
+				continue;
+			}
+
 			RemoveLimitedFlag(iTargets[i], LIMITED_GENERAL);
+		}
 		else
+		{
+			if(IsBhopLimited(iTargets[i]))
+			{
+				if(iTargetCount == 1)
+				{
+					CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Restricted.", iTargets[i]);
+					return Plugin_Handled;
+				}
+				continue;
+			}
+
 			AddLimitedFlag(iTargets[i], LIMITED_GENERAL);
+		}
 	}
 
 	CShowActivity2(client, "{green}[SM]{olive} ", "{default}Bunnyhop on target {olive}%s {default}has been {green}%s", sTargetName, bValue ? "Un-Restricted" : "Limited");
@@ -359,7 +382,7 @@ public Action Command_Status(int client, int argc)
 		return Plugin_Handled;
 	}
 
-	if (argc && CheckCommandAccess(client, "", ADMFLAG_BAN, true))
+	if (argc && CheckCommandAccess(client, "sm_bhop", ADMFLAG_BAN))
 	{
 		char sArgument[64];
 		GetCmdArg(1, sArgument, sizeof(sArgument));
