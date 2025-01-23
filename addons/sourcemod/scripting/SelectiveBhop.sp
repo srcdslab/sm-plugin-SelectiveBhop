@@ -11,6 +11,9 @@
 #tryinclude <zombiereloaded>
 #define REQUIRE_PLUGIN
 
+GlobalForward g_hForward_StatusOK;
+GlobalForward g_hForward_StatusNotOK;
+
 ConVar g_CVar_sv_enablebunnyhopping;
 #if defined _zr_included
 ConVar g_CVar_zr_disablebunnyhopping;
@@ -39,7 +42,8 @@ public Plugin myinfo =
 	name = "Selective Bunnyhop",
 	author = "BotoX + .Rushaway",
 	description = "Disables bunnyhop on certain players/groups",
-	version = "1.1.1"
+	version = SelectiveBhop_VERSION,
+	url = "https://github.com/srcdslab/sm-plugin-SelectiveBhop"
 }
 
 public void OnPluginStart()
@@ -83,13 +87,32 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 {
 	CreateNative("LimitBhop", Native_LimitBhop);
 	CreateNative("IsBhopLimited", Native_IsBhopLimited);
+
+	g_hForward_StatusOK = CreateGlobalForward("SelectiveBhop_OnPluginOK", ET_Ignore);
+	g_hForward_StatusNotOK = CreateGlobalForward("SelectiveBhop_OnPluginNotOK", ET_Ignore);
+
 	RegPluginLibrary("SelectiveBhop");
 
 	return APLRes_Success;
 }
 
+public void OnAllPluginsLoaded()
+{
+	SendForward_Available();
+}
+
+public void OnPluginPauseChange(bool pause)
+{
+	if (pause)
+		SendForward_NotAvailable();
+	else
+		SendForward_Available();
+}
+
 public void OnPluginEnd()
 {
+	SendForward_NotAvailable();
+
 	g_CVar_sv_enablebunnyhopping.BoolValue = g_bEnabled;
 	g_CVar_sv_enablebunnyhopping.Flags |= FCVAR_REPLICATED|FCVAR_NOTIFY;
 
@@ -461,4 +484,16 @@ public int Native_IsBhopLimited(Handle plugin, int numParams)
 	int LimitedFlag = g_ClientLimited[client] & ~(LIMITED_ZOMBIE);
 
 	return LimitedFlag != LIMITED_NONE;
+}
+
+stock void SendForward_Available()
+{
+	Call_StartForward(g_hForward_StatusOK);
+	Call_Finish();
+}
+
+stock void SendForward_NotAvailable()
+{
+	Call_StartForward(g_hForward_StatusNotOK);
+	Call_Finish();
 }
