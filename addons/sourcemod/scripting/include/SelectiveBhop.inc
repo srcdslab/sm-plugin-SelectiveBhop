@@ -3,26 +3,11 @@
 #endif
 #define _SelectiveBhop_Included
 
-#define SelectiveBhop_V_MAJOR   1
-#define SelectiveBhop_V_MINOR   2
-#define SelectiveBhop_V_PATCH   0
+#define SelectiveBhop_V_MAJOR   "1"
+#define SelectiveBhop_V_MINOR   "2"
+#define SelectiveBhop_V_PATCH   "0"
 
-#define SelectiveBhop_VERSION   "1.2.0"
-
-/**
- * Called when the plugin becomes available.
- * 
- * @noreturn
- */
-forward void SelectiveBhop_OnPluginOK();
-
-/**
- * Called when the plugin becomes unavailable.
- * This can happen when the plugin is reloaded or unloaded.
- * 
- * @noreturn
- */
-forward void SelectiveBhop_OnPluginNotOK();
+#define SelectiveBhop_VERSION   SelectiveBhop_V_MAJOR..."."...SelectiveBhop_V_MINOR..."."...SelectiveBhop_V_PATCH
 
 /**
  * Sets whether bunnyhopping is limited for a client.
