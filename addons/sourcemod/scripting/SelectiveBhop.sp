@@ -39,7 +39,8 @@ public Plugin myinfo =
 	name = "Selective Bunnyhop",
 	author = "BotoX + .Rushaway",
 	description = "Disables bunnyhop on certain players/groups",
-	version = "1.1.1"
+	version = SelectiveBhop_VERSION,
+	url = "https://github.com/srcdslab/sm-plugin-SelectiveBhop"
 }
 
 public void OnPluginStart()
