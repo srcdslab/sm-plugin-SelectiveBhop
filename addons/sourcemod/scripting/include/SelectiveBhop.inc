@@ -5,7 +5,7 @@
 
 #define SelectiveBhop_V_MAJOR   "1"
 #define SelectiveBhop_V_MINOR   "2"
-#define SelectiveBhop_V_PATCH   "0"
+#define SelectiveBhop_V_PATCH   "1"
 
 #define SelectiveBhop_VERSION   SelectiveBhop_V_MAJOR..."."...SelectiveBhop_V_MINOR..."."...SelectiveBhop_V_PATCH
 
