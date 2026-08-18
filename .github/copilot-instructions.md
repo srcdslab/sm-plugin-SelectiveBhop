@@ -24,58 +24,49 @@ This repository contains **SelectiveBhop**, a SourcePawn plugin for SourceMod th
 ├── workflows/
 │   └── ci.yml                    # GitHub Actions CI/CD pipeline
 └── dependabot.yml               # Dependency management
-
-/sourceknight.yaml               # Build system configuration
 ```
 
 ## Technical Environment
 
 - **Language**: SourcePawn
-- **Platform**: SourceMod 1.11+ (latest stable)
-- **Build System**: SourceKnight 0.1
-- **Compiler**: SourcePawn compiler (spcomp) via SourceKnight
+- **Platform**: SourceMod 1.12+ (latest stable)
+- **Build System**: Native GitHub Actions (rumblefrog/setup-sp)
+- **Compiler**: SourcePawn compiler (spcomp) via setup-sp
 - **CI/CD**: GitHub Actions with automated builds and releases
 
 ## Dependencies
 
-The plugin requires these dependencies (managed by SourceKnight):
+The plugin requires these dependencies (fetched by the CI workflow via git clone):
 
-1. **SourceMod Base** (1.11.0-git6917+)
+1. **SourceMod Base** (1.12.x)
 2. **MultiColors** - For colored chat messages
 3. **ZombieReloaded** - Optional integration for zombie-specific bhop control
 4. **PhysHooks Extension** - For physics-related hooks
 
-## Build System (SourceKnight)
+## Build System (GitHub Actions)
 
 ### Configuration
-The build is configured via `sourceknight.yaml`:
-- Dependencies are automatically downloaded and linked
-- Output goes to `/addons/sourcemod/plugins`
+The build is configured via `.github/workflows/ci.yml`:
+- Dependencies are cloned directly from their GitHub repos and their include files copied into `addons/sourcemod/scripting/include`
+- Output goes to `addons/sourcemod/plugins`
 - Target: `SelectiveBhop.smx`
 
 ### Build Commands
+There is no local build tooling to install. To build locally, install SourceMod/spcomp matching 1.12.x, then from `addons/sourcemod/scripting`:
 ```bash
-# Install SourceKnight (if not available)
-pip install sourceknight
-
-# Build the plugin
-sourceknight build
-
-# The compiled plugin will be in .sourceknight/package/addons/sourcemod/plugins/
-# Build artifacts are automatically excluded via .gitignore
+spcomp -i include -o ../plugins/SelectiveBhop.smx SelectiveBhop.sp
 ```
 
 ### Local Development
-For local development without SourceKnight installation:
-- Use the GitHub Actions CI for builds (push to branch)
-- The CI uses `maxime1907/action-sourceknight@v1` action
+For local development without a local spcomp install:
+- Use the GitHub Actions CI for builds (push to branch or open a PR)
 - Compiled artifacts are available as GitHub Actions artifacts
 
 ### CI/CD Pipeline
 - **Trigger**: Push, PR, or manual dispatch
-- **Build**: Ubuntu 24.04 with SourceKnight
+- **Build**: Ubuntu latest with `rumblefrog/setup-sp` (SourceMod 1.12.x)
 - **Artifacts**: Compiled plugin package
-- **Release**: Automatic releases on tags and main branch updates
+- **Release**: Automatic releases tagged `latest` on master/main pushes, plus tag-triggered releases
 
 ## Code Standards & Conventions
 
@@ -231,8 +222,8 @@ if(IsBhopLimited(client))
 
 ### Build Verification
 ```bash
-# Verify clean build
-sourceknight build
+# Verify clean build (matches the CI workflow)
+spcomp -i include -o ../plugins/SelectiveBhop.smx SelectiveBhop.sp
 
 # Check for warnings or errors in compilation
 # The plugin should compile without warnings
@@ -256,7 +247,7 @@ sourceknight build
 ## Common Issues & Solutions
 
 ### Build Issues
-- **Missing Dependencies**: Ensure all dependencies in `sourceknight.yaml` are accessible
+- **Missing Dependencies**: Ensure all dependency repos referenced in `.github/workflows/ci.yml` are accessible
 - **Include Errors**: Verify include paths and dependency order
 - **Compilation Warnings**: Address all warnings as they often indicate logical errors
 
