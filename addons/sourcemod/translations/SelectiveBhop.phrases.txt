@@ -1,0 +1,107 @@
+"Phrases"
+{
+	"Bhop Usage"
+	{
+		"en"		"Usage: sm_bhop <#userid|name> <0|1>"
+		"fr"		"Utilisation : sm_bhop <#userid|name> <0|1>"
+		"ru"		"Использование: sm_bhop <#userid|name> <0|1>"
+		"es"		"Uso: sm_bhop <#userid|name> <0|1>"
+		"de"		"Verwendung: sm_bhop <#userid|name> <0|1>"
+		"pt"		"Uso: sm_bhop <#userid|name> <0|1>"
+		"chi"		"用法：sm_bhop <#userid|name> <0|1>"
+	}
+
+	"Bhop Already Unrestricted"
+	{
+		"#format"	"{1:N}"
+		"en"		"{olive}{1} {default}is already {green}unrestricted{default}."
+		"fr"		"{olive}{1} {default}n'a déjà {green}aucune restriction{default} de bhop."
+		"ru"		"{olive}{1} {default}уже {green}без ограничений{default} на бхоп."
+		"es"		"{olive}{1} {default}ya está {green}sin restricción{default} de bhop."
+		"de"		"{olive}{1} {default}ist bereits {green}nicht eingeschränkt{default}."
+		"pt"		"{olive}{1} {default}já está {green}sem restrição{default} de bhop."
+		"chi"		"{olive}{1} {default}的连跳已经{green}不受限制{default}。"
+	}
+
+	"Bhop Already Restricted"
+	{
+		"#format"	"{1:N}"
+		"en"		"{olive}{1} {default}is already {green}restricted{default}."
+		"fr"		"{olive}{1} {default}a déjà le bhop {green}restreint{default}."
+		"ru"		"{olive}{1} {default}уже {green}ограничен{default} в бхопе."
+		"es"		"{olive}{1} {default}ya tiene el bhop {green}restringido{default}."
+		"de"		"{olive}{1} {default}ist bereits {green}eingeschränkt{default}."
+		"pt"		"{olive}{1} {default}já está com o bhop {green}restrito{default}."
+		"chi"		"{olive}{1} {default}的连跳已经{green}受到限制{default}。"
+	}
+
+	"Bhop Activity Unrestricted"
+	{
+		"#format"	"{1:s}"
+		"en"		"{default}Bunnyhop on target {olive}{1} {default}has been {green}unrestricted{default}."
+		"fr"		"{default}Le bunnyhop de la cible {olive}{1} {default}n'est plus {green}restreint{default}."
+		"ru"		"{default}Ограничение бхопа для цели {olive}{1} {green}снято{default}."
+		"es"		"{default}El bunnyhop del objetivo {olive}{1} {default}ya {green}no está restringido{default}."
+		"de"		"{default}Bunnyhop für das Ziel {olive}{1} {default}ist jetzt {green}nicht mehr eingeschränkt{default}."
+		"pt"		"{default}O bunnyhop do alvo {olive}{1} {default}foi {green}liberado{default}."
+		"chi"		"{default}目标 {olive}{1} {default}的连跳已{green}解除限制{default}。"
+	}
+
+	"Bhop Activity Limited"
+	{
+		"#format"	"{1:s}"
+		"en"		"{default}Bunnyhop on target {olive}{1} {default}has been {green}limited{default}."
+		"fr"		"{default}Le bunnyhop de la cible {olive}{1} {default}a été {green}limité{default}."
+		"ru"		"{default}Бхоп для цели {olive}{1} {green}ограничен{default}."
+		"es"		"{default}El bunnyhop del objetivo {olive}{1} {default}ha sido {green}limitado{default}."
+		"de"		"{default}Bunnyhop für das Ziel {olive}{1} {default}wurde {green}eingeschränkt{default}."
+		"pt"		"{default}O bunnyhop do alvo {olive}{1} {default}foi {green}limitado{default}."
+		"chi"		"{default}目标 {olive}{1} {default}的连跳已被{green}限制{default}。"
+	}
+
+	"Bhop Status Target Limited"
+	{
+		"#format"	"{1:N}"
+		"en"		"{olive}{1}{default}'s bhop is currently: {red}limited"
+		"fr"		"{default}Le bhop de {olive}{1} {default}est actuellement : {red}limité"
+		"ru"		"{default}Бхоп игрока {olive}{1} {default}сейчас: {red}ограничен"
+		"es"		"{default}El bhop de {olive}{1} {default}está actualmente: {red}limitado"
+		"de"		"{default}Der Bhop von {olive}{1} {default}ist derzeit: {red}eingeschränkt"
+		"pt"		"{default}O bhop de {olive}{1} {default}está atualmente: {red}limitado"
+		"chi"		"{olive}{1} {default}的连跳当前状态：{red}受限"
+	}
+
+	"Bhop Status Target Not Restricted"
+	{
+		"#format"	"{1:N}"
+		"en"		"{olive}{1}{default}'s bhop is currently: {green}not restricted"
+		"fr"		"{default}Le bhop de {olive}{1} {default}est actuellement : {green}non restreint"
+		"ru"		"{default}Бхоп игрока {olive}{1} {default}сейчас: {green}без ограничений"
+		"es"		"{default}El bhop de {olive}{1} {default}está actualmente: {green}sin restricción"
+		"de"		"{default}Der Bhop von {olive}{1} {default}ist derzeit: {green}nicht eingeschränkt"
+		"pt"		"{default}O bhop de {olive}{1} {default}está atualmente: {green}sem restrição"
+		"chi"		"{olive}{1} {default}的连跳当前状态：{green}不受限制"
+	}
+
+	"Bhop Status Self Limited"
+	{
+		"en"		"Your bhop is currently: {red}limited"
+		"fr"		"Votre bhop est actuellement : {red}limité"
+		"ru"		"Ваш бхоп сейчас: {red}ограничен"
+		"es"		"Tu bhop está actualmente: {red}limitado"
+		"de"		"Dein Bhop ist derzeit: {red}eingeschränkt"
+		"pt"		"Seu bhop está atualmente: {red}limitado"
+		"chi"		"你的连跳当前状态：{red}受限"
+	}
+
+	"Bhop Status Self Not Restricted"
+	{
+		"en"		"Your bhop is currently: {green}not restricted"
+		"fr"		"Votre bhop est actuellement : {green}non restreint"
+		"ru"		"Ваш бхоп сейчас: {green}без ограничений"
+		"es"		"Tu bhop está actualmente: {green}sin restricción"
+		"de"		"Dein Bhop ist derzeit: {green}nicht eingeschränkt"
+		"pt"		"Seu bhop está atualmente: {green}sem restrição"
+		"chi"		"你的连跳当前状态：{green}不受限制"
+	}
+}

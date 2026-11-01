@@ -46,6 +46,7 @@ public Plugin myinfo =
 public void OnPluginStart()
 {
 	LoadTranslations("common.phrases");
+	LoadTranslations("SelectiveBhop.phrases");
 
 	g_CVar_sv_enablebunnyhopping = FindConVar("sv_enablebunnyhopping");
 	g_CVar_sv_enablebunnyhopping.Flags &= ~FCVAR_REPLICATED;
@@ -310,7 +311,7 @@ public Action Command_Bhop(int client, int argc)
 
 	if(argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM] {default}Usage: sm_bhop <#userid|name> <0|1>");
+		CReplyToCommand(client, "{green}[SM] {default}%t", "Bhop Usage");
 		return Plugin_Handled;
 	}
 
@@ -341,7 +342,7 @@ public Action Command_Bhop(int client, int argc)
 			{
 				if(iTargetCount == 1)
 				{
-					CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Un-Restricted.", iTargets[i]);
+					CReplyToCommand(client, "{green}[SM] %t", "Bhop Already Unrestricted", iTargets[i]);
 					return Plugin_Handled;
 				}
 				continue;
@@ -355,7 +356,7 @@ public Action Command_Bhop(int client, int argc)
 			{
 				if(iTargetCount == 1)
 				{
-					CReplyToCommand(client, "{green}[SM]{olive} %N {default}is already {green}Restricted.", iTargets[i]);
+					CReplyToCommand(client, "{green}[SM] %t", "Bhop Already Restricted", iTargets[i]);
 					return Plugin_Handled;
 				}
 				continue;
@@ -365,7 +366,7 @@ public Action Command_Bhop(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM]{olive} ", "{default}Bunnyhop on target {olive}%s {default}has been {green}%s", sTargetName, bValue ? "Un-Restricted" : "Limited");
+	CShowActivity2(client, "{green}[SM]{olive} ", "%t", bValue ? "Bhop Activity Unrestricted" : "Bhop Activity Limited", sTargetName);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" %s bunnyhop on target \"%s\"", client, bValue ? "Un-Restricted" : "Limited", sTargetName);
@@ -394,12 +395,12 @@ public Action Command_Status(int client, int argc)
 
 		if(IsBhopLimited(target))
 		{
-			CReplyToCommand(client, "{green}[SM] {olive}%N {default}bhop is currently : {red}Limited", target);
+			CReplyToCommand(client, "{green}[SM] %t", "Bhop Status Target Limited", target);
 			return Plugin_Handled;
 		}
 		else
 		{
-			CReplyToCommand(client, "{green}[SM] {olive}%N {default}bhop is currently : {green}Not Restricted", target);
+			CReplyToCommand(client, "{green}[SM] %t", "Bhop Status Target Not Restricted", target);
 			return Plugin_Handled;
 		}
 	}
@@ -407,12 +408,12 @@ public Action Command_Status(int client, int argc)
 	{
 		if(IsBhopLimited(client))
 		{
-			CReplyToCommand(client, "{green}[SM] {default}Your bhop is currently : {red}Limited");
+			CReplyToCommand(client, "{green}[SM] {default}%t", "Bhop Status Self Limited");
 			return Plugin_Handled;
 		}
 		else
 		{
-			CReplyToCommand(client, "{green}[SM] {default}Your bhop is currently : {green}Not restricted");
+			CReplyToCommand(client, "{green}[SM] {default}%t", "Bhop Status Self Not Restricted");
 			return Plugin_Handled;
 		}
 	}
