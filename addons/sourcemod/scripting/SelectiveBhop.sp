@@ -366,7 +366,10 @@ public Action Command_Bhop(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM]{olive} ", "%t", bValue ? "Bhop Activity Unrestricted" : "Bhop Activity Limited", sTargetName);
+	if(bIsML)
+		CShowActivity2(client, "{green}[SM]{olive} ", "%t", bValue ? "Bhop Activity Unrestricted" : "Bhop Activity Limited", sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM]{olive} ", "%t", bValue ? "Bhop Activity Unrestricted" : "Bhop Activity Limited", "_s", sTargetName);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" %s bunnyhop on target \"%s\"", client, bValue ? "Un-Restricted" : "Limited", sTargetName);

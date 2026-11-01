@@ -37,7 +37,7 @@
 
 	"Bhop Activity Unrestricted"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{default}Bunnyhop on target {olive}{1} {default}has been {green}unrestricted{default}."
 		"fr"		"{default}Le bunnyhop de la cible {olive}{1} {default}n'est plus {green}restreint{default}."
 		"ru"		"{default}Ограничение бхопа для цели {olive}{1} {green}снято{default}."
@@ -49,7 +49,7 @@
 
 	"Bhop Activity Limited"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{default}Bunnyhop on target {olive}{1} {default}has been {green}limited{default}."
 		"fr"		"{default}Le bunnyhop de la cible {olive}{1} {default}a été {green}limité{default}."
 		"ru"		"{default}Бхоп для цели {olive}{1} {green}ограничен{default}."
