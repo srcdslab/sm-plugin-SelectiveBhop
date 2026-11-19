@@ -9,6 +9,12 @@
 		"de"		"Verwendung: sm_bhop <#userid|name> <0|1>"
 		"pt"		"Uso: sm_bhop <#userid|name> <0|1>"
 		"chi"		"用法：sm_bhop <#userid|name> <0|1>"
+		"pl"		"Użycie: sm_bhop <#userid|name> <0|1>"
+		"tr"		"Kullanım: sm_bhop <#userid|name> <0|1>"
+		"it"		"Uso: sm_bhop <#userid|name> <0|1>"
+		"ua"		"Використання: sm_bhop <#userid|name> <0|1>"
+		"zho"		"用法：sm_bhop <#userid|name> <0|1>"
+		"cze"		"Použití: sm_bhop <#userid|name> <0|1>"
 	}
 
 	"Bhop Already Unrestricted"
@@ -21,6 +27,12 @@
 		"de"		"{olive}{1} {default}ist bereits {green}nicht eingeschränkt{default}."
 		"pt"		"{olive}{1} {default}já está {green}sem restrição{default} de bhop."
 		"chi"		"{olive}{1} {default}的连跳已经{green}不受限制{default}。"
+		"pl"		"{olive}{1} {default}ma już {green}brak ograniczeń{default} bhopa."
+		"tr"		"{olive}{1} {default}zaten {green}kısıtlı değil{default}."
+		"it"		"{olive}{1} {default}è già {green}senza restrizioni{default}."
+		"ua"		"{olive}{1} {default}вже {green}без обмежень{default} на бхоп."
+		"zho"		"{olive}{1} {default}的連跳已經{green}不受限制{default}。"
+		"cze"		"{olive}{1} {default}už je {green}bez omezení{default}."
 	}
 
 	"Bhop Already Restricted"
@@ -33,6 +45,12 @@
 		"de"		"{olive}{1} {default}ist bereits {green}eingeschränkt{default}."
 		"pt"		"{olive}{1} {default}já está com o bhop {green}restrito{default}."
 		"chi"		"{olive}{1} {default}的连跳已经{green}受到限制{default}。"
+		"pl"		"{olive}{1} {default}ma już {green}ograniczony{default} bhop."
+		"tr"		"{olive}{1} {default}zaten {green}kısıtlı{default}."
+		"it"		"{olive}{1} {default}è già {green}limitato{default}."
+		"ua"		"{olive}{1} {default}вже {green}обмежений{default} у бхопі."
+		"zho"		"{olive}{1} {default}的連跳已經{green}受到限制{default}。"
+		"cze"		"{olive}{1} {default}už je {green}omezen{default}."
 	}
 
 	"Bhop Activity Unrestricted"
@@ -45,6 +63,12 @@
 		"de"		"{default}Bunnyhop für das Ziel {olive}{1} {default}ist jetzt {green}nicht mehr eingeschränkt{default}."
 		"pt"		"{default}O bunnyhop do alvo {olive}{1} {default}foi {green}liberado{default}."
 		"chi"		"{default}目标 {olive}{1} {default}的连跳已{green}解除限制{default}。"
+		"pl"		"{default}Bunnyhop celu {olive}{1} {default}został {green}odblokowany{default}."
+		"tr"		"{default}Hedef {olive}{1} {default}için bunnyhop {green}serbest bırakıldı{default}."
+		"it"		"{default}Il bunnyhop del bersaglio {olive}{1} {default}è stato {green}sbloccato{default}."
+		"ua"		"{default}Обмеження бхопа для цілі {olive}{1} {green}знято{default}."
+		"zho"		"{default}目標 {olive}{1} {default}的連跳已{green}解除限制{default}。"
+		"cze"		"{default}Bunnyhop cíle {olive}{1} {default}byl {green}uvolněn{default}."
 	}
 
 	"Bhop Activity Limited"
@@ -57,6 +81,12 @@
 		"de"		"{default}Bunnyhop für das Ziel {olive}{1} {default}wurde {green}eingeschränkt{default}."
 		"pt"		"{default}O bunnyhop do alvo {olive}{1} {default}foi {green}limitado{default}."
 		"chi"		"{default}目标 {olive}{1} {default}的连跳已被{green}限制{default}。"
+		"pl"		"{default}Bunnyhop celu {olive}{1} {default}został {green}ograniczony{default}."
+		"tr"		"{default}Hedef {olive}{1} {default}için bunnyhop {green}sınırlandırıldı{default}."
+		"it"		"{default}Il bunnyhop del bersaglio {olive}{1} {default}è stato {green}limitato{default}."
+		"ua"		"{default}Бхоп для цілі {olive}{1} {green}обмежено{default}."
+		"zho"		"{default}目標 {olive}{1} {default}的連跳已被{green}限制{default}。"
+		"cze"		"{default}Bunnyhop cíle {olive}{1} {default}byl {green}omezen{default}."
 	}
 
 	"Bhop Status Target Limited"
@@ -69,6 +99,12 @@
 		"de"		"{default}Der Bhop von {olive}{1} {default}ist derzeit: {red}eingeschränkt"
 		"pt"		"{default}O bhop de {olive}{1} {default}está atualmente: {red}limitado"
 		"chi"		"{olive}{1} {default}的连跳当前状态：{red}受限"
+		"pl"		"{default}Bhop gracza {olive}{1} {default}jest obecnie: {red}ograniczony"
+		"tr"		"{default}{olive}{1} {default}oyuncusunun bhop durumu: {red}sınırlı"
+		"it"		"{default}Il bhop di {olive}{1} {default}è attualmente: {red}limitato"
+		"ua"		"{default}Бхоп гравця {olive}{1} {default}зараз: {red}обмежений"
+		"zho"		"{olive}{1} {default}的連跳目前狀態：{red}受限"
+		"cze"		"{default}Bhop hráče {olive}{1} {default}je momentálně: {red}omezený"
 	}
 
 	"Bhop Status Target Not Restricted"
@@ -81,6 +117,12 @@
 		"de"		"{default}Der Bhop von {olive}{1} {default}ist derzeit: {green}nicht eingeschränkt"
 		"pt"		"{default}O bhop de {olive}{1} {default}está atualmente: {green}sem restrição"
 		"chi"		"{olive}{1} {default}的连跳当前状态：{green}不受限制"
+		"pl"		"{default}Bhop gracza {olive}{1} {default}jest obecnie: {green}bez ograniczeń"
+		"tr"		"{default}{olive}{1} {default}oyuncusunun bhop durumu: {green}kısıtlı değil"
+		"it"		"{default}Il bhop di {olive}{1} {default}è attualmente: {green}senza restrizioni"
+		"ua"		"{default}Бхоп гравця {olive}{1} {default}зараз: {green}без обмежень"
+		"zho"		"{olive}{1} {default}的連跳目前狀態：{green}不受限制"
+		"cze"		"{default}Bhop hráče {olive}{1} {default}je momentálně: {green}bez omezení"
 	}
 
 	"Bhop Status Self Limited"
@@ -92,6 +134,12 @@
 		"de"		"Dein Bhop ist derzeit: {red}eingeschränkt"
 		"pt"		"Seu bhop está atualmente: {red}limitado"
 		"chi"		"你的连跳当前状态：{red}受限"
+		"pl"		"Twój bhop jest obecnie: {red}ograniczony"
+		"tr"		"Bhop durumun: {red}sınırlı"
+		"it"		"Il tuo bhop è attualmente: {red}limitato"
+		"ua"		"Ваш бхоп зараз: {red}обмежений"
+		"zho"		"你的連跳目前狀態：{red}受限"
+		"cze"		"Tvůj bhop je momentálně: {red}omezený"
 	}
 
 	"Bhop Status Self Not Restricted"
@@ -103,5 +151,11 @@
 		"de"		"Dein Bhop ist derzeit: {green}nicht eingeschränkt"
 		"pt"		"Seu bhop está atualmente: {green}sem restrição"
 		"chi"		"你的连跳当前状态：{green}不受限制"
+		"pl"		"Twój bhop jest obecnie: {green}bez ograniczeń"
+		"tr"		"Bhop durumun: {green}kısıtlı değil"
+		"it"		"Il tuo bhop è attualmente: {green}senza restrizioni"
+		"ua"		"Ваш бхоп зараз: {green}без обмежень"
+		"zho"		"你的連跳目前狀態：{green}不受限制"
+		"cze"		"Tvůj bhop je momentálně: {green}bez omezení"
 	}
 }
